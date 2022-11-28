@@ -1,4 +1,4 @@
-package com.example.chatbotspring.services.fuzzylogic;
+package com.example.chatbotspring.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InputController {
+public class FileReaderCSV {
 
     public static final int COLUMN_GIOI_TINH = 0;
     public static final int COLUMN_TUOI = 1;
@@ -30,7 +30,7 @@ public class InputController {
     public static final int COLUMN_NHIP_TIM_MAX = 9;
     public static final int COLUMN_CHOLESTEROL_MIN = 10;
     public static final int COLUMN_CHOLESTEROL_MAX = 11;
-    private static final Logger logger = LoggerFactory.getLogger(InputController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileReaderCSV.class);
 
     public static List<DuLieu> read(String excelFilePath) {
         try {

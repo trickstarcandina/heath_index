@@ -4,12 +4,16 @@ import com.example.chatbotspring.services.neuralnetwork.activationfunctions.Acti
 import com.example.chatbotspring.services.neuralnetwork.activationfunctions.ActivationFunctionFactory;
 import com.example.chatbotspring.utils.MatrixUtilities;
 import com.example.chatbotspring.utils.WrongDimensionException;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.ejml.simple.SimpleMatrix;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Data
+@Service
+@AllArgsConstructor
 public class NeuralNetworkService {
 
     private final ActivationFunctionFactory activationFunctionFactory = new ActivationFunctionFactory();

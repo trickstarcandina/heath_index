@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DataRequest {
     private Integer age;
+
     private Gender gender;
 
     private Double height;
