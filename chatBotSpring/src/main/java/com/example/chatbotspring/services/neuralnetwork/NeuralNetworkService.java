@@ -1,7 +1,7 @@
-package com.example.chatbotspring.services;
+package com.example.chatbotspring.services.neuralnetwork;
 
-import com.example.chatbotspring.services.activationfunctions.ActivationFunction;
-import com.example.chatbotspring.services.activationfunctions.ActivationFunctionFactory;
+import com.example.chatbotspring.services.neuralnetwork.activationfunctions.ActivationFunction;
+import com.example.chatbotspring.services.neuralnetwork.activationfunctions.ActivationFunctionFactory;
 import com.example.chatbotspring.utils.MatrixUtilities;
 import com.example.chatbotspring.utils.WrongDimensionException;
 import lombok.Data;

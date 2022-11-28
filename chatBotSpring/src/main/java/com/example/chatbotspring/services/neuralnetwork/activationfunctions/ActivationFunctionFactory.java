@@ -1,4 +1,4 @@
-package com.example.chatbotspring.services.activationfunctions;
+package com.example.chatbotspring.services.neuralnetwork.activationfunctions;
 
 import java.util.HashMap;
 import java.util.Map;
