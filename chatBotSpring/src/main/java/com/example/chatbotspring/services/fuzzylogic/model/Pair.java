@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Pair {
     // chieu cao, can nang, duong huyet
     // duong huyet, cholesterol, nhip tim
-    public int x;
-    public int y;
-    public int z;
+    private int x;
+    private int y;
+    private int z;
 }

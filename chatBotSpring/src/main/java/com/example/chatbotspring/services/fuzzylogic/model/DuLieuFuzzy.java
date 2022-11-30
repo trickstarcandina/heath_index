@@ -44,4 +44,5 @@ public class DuLieuFuzzy {
                 ", cholesteromax=" + cholesterolMax +
                 '}';
     }
+
 }
