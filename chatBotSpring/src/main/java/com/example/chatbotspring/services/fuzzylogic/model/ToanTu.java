@@ -7,10 +7,17 @@ import java.util.List;
 
 @Data
 public class ToanTu {
+<<<<<<< HEAD
     private double thap;
     private double binhThuong;
     private double cao;
     private List<Double> p = new ArrayList<>();
+=======
+    private  double thap;
+    private  double binhThuong;
+    private  double cao;
+    private  List<Double> p = new ArrayList<>();
+>>>>>>> 88bfc2f (private)
 
     public ToanTu() {
         thap = 0;
@@ -23,6 +30,13 @@ public class ToanTu {
         p.add(binhThuong);
         p.add(cao);
     }
+
+
+    public List<Double> getP() {
+        return p;
+    }
+
+
 
     @Override
     public String toString() {

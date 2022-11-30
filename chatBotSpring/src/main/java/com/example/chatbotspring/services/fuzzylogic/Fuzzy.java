@@ -55,20 +55,20 @@ public class Fuzzy {
 //        listDuLieuFuzzy = FileReaderCSV.readFileFuzzy(excelFilePath);
 //    }
 
-//    public static void main(String[] args) throws IOException {
-//        Fuzzy fuzzy = new Fuzzy();
-//        List<Double> list = fuzzy.ketQua("nu", 4, 100, 20, 6, 113, 224);
-//        System.out.println(fuzzy.timkiem("nu", 4).toString());
-//        System.out.println(fuzzy.chieuCao.toString());
-//        System.out.println(fuzzy.canNang.toString());
-//        System.out.println(fuzzy.duongHuyet.toString());
-//        System.out.println(fuzzy.nhipTim.toString());
-//        System.out.println(fuzzy.cholesterol.toString());
-//        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
-//        System.out.println();
-//        System.out.println(fuzzy.list.size());
-//
-//    }
+    public static void main(String[] args) throws IOException {
+        Fuzzy fuzzy = new Fuzzy();
+        List<Double> list = fuzzy.ketQua("nu", 4, 100, 20, 6, 113, 224);
+        System.out.println(fuzzy.timkiem("nu", 4).toString());
+        System.out.println(fuzzy.chieuCao.toString());
+        System.out.println(fuzzy.canNang.toString());
+        System.out.println(fuzzy.duongHuyet.toString());
+        System.out.println(fuzzy.nhipTim.toString());
+        System.out.println(fuzzy.cholesterol.toString());
+        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
+        System.out.println();
+        System.out.println(fuzzy.list.size());
+
+    }
 
     // tim kiem du lieu chuan theo gioi tinh va tuoi
     public DuLieuFuzzy timkiem(String gioitinh, int tuoi) {
