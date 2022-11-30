@@ -12,6 +12,8 @@ import com.example.chatbotspring.utils.FileReaderCSV;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,24 +52,57 @@ public class FuzzyService {
 
     // doc du lieu tu file csv
     public FuzzyService() throws IOException { // doc du lieu tu file csv
-        String excelFilePath = "src/main/resources/input.xlsx";
-        list = FileReaderCSV.read(excelFilePath);
+        String excelFilePath = "src/main/resources/csv.csv";
+        try (BufferedReader bir = new BufferedReader(new FileReader(excelFilePath))) {
+            String line = bir.readLine();
+            while (!line.trim().equals("end")) {
+                List<String> result = catChuoi(line);
+                //System.out.println(result);
+                if(result.size()>0){
+                    DuLieu dl = new DuLieu(result.get(0).trim(), Integer.valueOf(result.get(1).trim()), Double.valueOf(result.get(2).trim())
+                            ,Double.valueOf(result.get(3).trim()), Double.valueOf(result.get(4).trim()), Double.valueOf(result.get(5).trim())
+                            ,Double.valueOf(result.get(6).trim()), Double.valueOf(result.get(7).trim()), Integer.valueOf(result.get(8).trim())
+                            ,Integer.valueOf(result.get(9).trim()), Double.valueOf(result.get(10).trim()), Double.valueOf(result.get(11).trim()));
+                    list.add(dl);
+                }
+                line = bir.readLine();
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-//    public static void main(String[] args) throws IOException {
-//        Fuzzy fuzzy = new Fuzzy();
-//        List<Double> list = fuzzy.ketQua("nu", 4, 100, 20, 6, 113, 224);
-//        System.out.println(fuzzy.timkiem("nu", 4).toString());
-//        System.out.println(fuzzy.chieuCao.toString());
-//        System.out.println(fuzzy.canNang.toString());
-//        System.out.println(fuzzy.duongHuyet.toString());
-//        System.out.println(fuzzy.nhipTim.toString());
-//        System.out.println(fuzzy.cholesterol.toString());
-//        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
-//        System.out.println();
-//        System.out.println(fuzzy.list.size());
-//
-//    }
+    private List<String> catChuoi(String line) {
+        List<String> result = new ArrayList<>();
+        StringBuilder s = new StringBuilder("");
+        for(int i = 0; i < line.length(); i++){
+            if(line.charAt(i) == ',') s.append('.');
+            else
+            if(line.charAt(i) != ';') s.append(line.charAt(i));
+            else {
+                result.add(s.toString().trim());
+                s = new StringBuilder("");
+            }
+
+        }
+        result.add(s.toString().trim());
+        return result;
+    }
+
+    public static void main(String[] args) throws IOException {
+        FuzzyService fuzzy = new FuzzyService();
+        List<Double> list = fuzzy.ketQua("nu", 24, 160, 45, 7, 90, 180);
+        //System.out.println(fuzzy.timkiem("nu", 4).toString());
+       // System.out.println(fuzzy.chieuCao.toString());
+        //System.out.println(fuzzy.canNang.toString());
+       // System.out.println(fuzzy.duongHuyet.toString());
+        //System.out.println(fuzzy.nhipTim.toString());
+        //System.out.println(fuzzy.cholesterol.toString());
+        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
+        //System.out.println();
+        //System.out.println(fuzzy.list.size());
+
+    }
 
     // tim kiem du lieu chuan theo gioi tinh va tuoi
     public DuLieu timkiem(String gioitinh, int tuoi) {

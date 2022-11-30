@@ -50,7 +50,9 @@ public class FileReaderCSV {
 
                 // Read cells and set value for book object
                 DuLieu duLieu = new DuLieu();
+                int d = 0;
                 while (cellIterator.hasNext()) {
+                    d++;
                     //Read cell
                     Cell cell = cellIterator.next();
                     Object cellValue = getCellValue(cell);
@@ -69,6 +71,7 @@ public class FileReaderCSV {
                         case COLUMN_CHIEU_CAO_MIN:
                             String x = (String) getCellValue(cell); // chuyen . thanh ,
                             duLieu.setChieuCaoMin(Double.parseDouble(convertToString(x)));
+                            //System.out.println(duLieu.getChieuCaoMin());
                             break;
                         case COLUMN_CHIEU_CAO_MAX:
                             String x1 = (String) getCellValue(cell); // chuyen . thanh ,
@@ -120,7 +123,7 @@ public class FileReaderCSV {
 
             return out;
         } catch (Exception e) {
-            logger.error("exception when read csv");
+            logger.error("exception when read csv {}", e.getMessage() );
         }
         return new ArrayList<>();
     }
