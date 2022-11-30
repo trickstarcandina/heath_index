@@ -5,12 +5,12 @@
  */
 package com.example.chatbotspring.services.fuzzylogic;
 
-import com.example.chatbotspring.services.fuzzylogic.model.DuLieu;
+import com.example.chatbotspring.services.fuzzylogic.model.DuLieuFuzzy;
 import com.example.chatbotspring.services.fuzzylogic.model.Pair;
 import com.example.chatbotspring.services.fuzzylogic.model.ToanTu;
 import com.example.chatbotspring.utils.FileReaderCSV;
+import com.example.chatbotspring.utils.FileReaderXLSX;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,10 +20,9 @@ import java.util.List;
  * @author caotu
  */
 
-@Service
 @AllArgsConstructor
-public class FuzzyService {
-    public List<DuLieu> list = new ArrayList<DuLieu>(); // danh sach du lieu so sanh
+public class Fuzzy {
+    public List<DuLieuFuzzy> list = new ArrayList<>(); // danh sach du lieu so sanh
     public ToanTu chieuCao = new ToanTu();
     public ToanTu canNang = new ToanTu();
     public ToanTu duongHuyet = new ToanTu();
@@ -49,9 +48,9 @@ public class FuzzyService {
     public Double th_t;
 
     // doc du lieu tu file csv
-    public FuzzyService() throws IOException { // doc du lieu tu file csv
-        String excelFilePath = "src/main/resources/input.xlsx";
-        list = FileReaderCSV.read(excelFilePath);
+    public Fuzzy() throws IOException { // doc du lieu tu file csv
+        String excelFilePath = "src/main/resources/fuzzy.csv";
+        list = FileReaderCSV.readFileFuzzy(excelFilePath);
     }
 
 //    public static void main(String[] args) throws IOException {
@@ -70,9 +69,9 @@ public class FuzzyService {
 //    }
 
     // tim kiem du lieu chuan theo gioi tinh va tuoi
-    public DuLieu timkiem(String gioitinh, int tuoi) {
+    public DuLieuFuzzy timkiem(String gioitinh, int tuoi) {
         for (int i = 0; i < list.size(); i++)
-            if (list.get(i).gioiTinh.equals(gioitinh) && list.get(i).getTuoi() == tuoi) return list.get(i);
+            if (list.get(i).getGioiTinh().equals(gioitinh) && list.get(i).getTuoi() == tuoi) return list.get(i);
         return null;
     }
 
@@ -171,65 +170,65 @@ public class FuzzyService {
 
     // tinh xac suat 3 toan tu dau vao, liet ke cac truong hop
     public void init(String gioitinh, int tuoi, double cc, double cn, double dh, double nt, double choles) {
-        DuLieu dl = timkiem(gioitinh, tuoi);
+        DuLieuFuzzy dl = timkiem(gioitinh, tuoi);
         // tinh gia tri mo chieu cao
-        if (cc < dl.chieuCaoMin) {
+        if (cc < dl.getChieuCaoMin()) {
             chieuCao.thap = 1;
-        } else if (cc >= dl.chieuCaoMin && cc < (dl.chieuCaoMin + dl.chieuCaoMax) / 2) {
-            chieuCao.binhThuong = 2 * (cc - dl.chieuCaoMin) / (dl.chieuCaoMax - dl.chieuCaoMin);
+        } else if (cc >= dl.getChieuCaoMin() && cc < (dl.getChieuCaoMin() + dl.getChieuCaoMax()) / 2) {
+            chieuCao.binhThuong = 2 * (cc - dl.getChieuCaoMin()) / (dl.getChieuCaoMax() - dl.getChieuCaoMin());
             chieuCao.thap = 1 - chieuCao.binhThuong;
-        } else if (cc >= (dl.chieuCaoMin + dl.chieuCaoMax) / 2 && cc < dl.chieuCaoMax) {
-            chieuCao.binhThuong = 2 * (dl.chieuCaoMax - cc) / (dl.chieuCaoMax - dl.chieuCaoMin);
+        } else if (cc >= (dl.getChieuCaoMin() + dl.getChieuCaoMax()) / 2 && cc < dl.getChieuCaoMax()) {
+            chieuCao.binhThuong = 2 * (dl.getChieuCaoMax() - cc) / (dl.getChieuCaoMax() - dl.getChieuCaoMin());
             chieuCao.cao = 1 - chieuCao.binhThuong;
-        } else if (cc >= dl.chieuCaoMax) chieuCao.cao = 1;
+        } else if (cc >= dl.getChieuCaoMax()) chieuCao.cao = 1;
         chieuCao.set();
         // tinh gia tri mo can nang
-        if (cn < dl.canNangMin) {
+        if (cn < dl.getCanNangMin()) {
             canNang.thap = 1;
-        } else if (cn >= dl.canNangMin && cn < (dl.canNangMin + dl.canNangMax) / 2) {
-            canNang.binhThuong = 2 * (cn - dl.canNangMin) / (dl.canNangMax - dl.canNangMin);
+        } else if (cn >= dl.getCanNangMin() && cn < (dl.getCanNangMin() + dl.getCanNangMax()) / 2) {
+            canNang.binhThuong = 2 * (cn - dl.getCanNangMin()) / (dl.getCanNangMax() - dl.getCanNangMin());
             canNang.thap = 1 - canNang.binhThuong;
-        } else if (cn >= (dl.canNangMin + dl.canNangMax) / 2 && cn < dl.canNangMax) {
-            canNang.binhThuong = 2 * (dl.canNangMax - cn) / (dl.canNangMax - dl.canNangMin);
+        } else if (cn >= (dl.getCanNangMin() + dl.getCanNangMax()) / 2 && cn < dl.getCanNangMax()) {
+            canNang.binhThuong = 2 * (dl.getCanNangMax() - cn) / (dl.getCanNangMax() - dl.getCanNangMin());
             canNang.cao = 1 - canNang.binhThuong;
-        } else if (cn >= dl.canNangMax) canNang.cao = 1;
+        } else if (cn >= dl.getCanNangMax()) canNang.cao = 1;
         canNang.set();
         // tinh gia tri mo duong huyet
-        if (dh < dl.duongHuyetMin) {
+        if (dh < dl.getDuongHuyetMin()) {
             duongHuyet.thap = 1;
-        } else if (dh >= dl.duongHuyetMin && dh < (dl.duongHuyetMin + dl.duongHuyetMax) / 2) {
-            duongHuyet.binhThuong = 2 * (dh - dl.duongHuyetMin) / (dl.duongHuyetMax - dl.duongHuyetMin);
+        } else if (dh >= dl.getDuongHuyetMin() && dh < (dl.getDuongHuyetMin() + dl.getDuongHuyetMax()) / 2) {
+            duongHuyet.binhThuong = 2 * (dh - dl.getDuongHuyetMin()) / (dl.getDuongHuyetMax() - dl.getDuongHuyetMin());
             duongHuyet.thap = 1 - duongHuyet.binhThuong;
-        } else if (dh >= (dl.duongHuyetMin + dl.duongHuyetMax) / 2 && dh < dl.duongHuyetMax) {
-            duongHuyet.binhThuong = 2 * (dl.duongHuyetMax - dh) / (dl.duongHuyetMax - dl.duongHuyetMin);
+        } else if (dh >= (dl.getDuongHuyetMin() + dl.getDuongHuyetMax()) / 2 && dh < dl.getDuongHuyetMax()) {
+            duongHuyet.binhThuong = 2 * (dl.getDuongHuyetMax() - dh) / (dl.getDuongHuyetMax() - dl.getDuongHuyetMin());
             duongHuyet.cao = 1 - duongHuyet.binhThuong;
-        } else if (dh >= dl.duongHuyetMax) {
+        } else if (dh >= dl.getDuongHuyetMax()) {
             duongHuyet.cao = 1;
         }
         duongHuyet.set();
         // tinh gia tri mo nhip tim
-        if (nt < dl.nhipTimMin) {
+        if (nt < dl.getNhipTimMin()) {
             nhipTim.thap = 1;
-        } else if (nt >= dl.nhipTimMin && nt < (dl.nhipTimMin + dl.nhipTimMax) / 2) {
-            nhipTim.binhThuong = 2 * (nt - dl.nhipTimMin) / (dl.nhipTimMax - dl.nhipTimMin);
+        } else if (nt >= dl.getNhipTimMin() && nt < (dl.getNhipTimMin() + dl.getNhipTimMax()) / 2) {
+            nhipTim.binhThuong = 2 * (nt - dl.getNhipTimMin()) / (dl.getNhipTimMax() - dl.getNhipTimMin());
             nhipTim.thap = 1 - nhipTim.binhThuong;
-        } else if (nt >= (dl.nhipTimMin + dl.nhipTimMax) / 2 && dh < dl.nhipTimMax) {
-            nhipTim.binhThuong = 2 * (dl.nhipTimMax - nt) / (dl.nhipTimMax - dl.nhipTimMin);
+        } else if (nt >= (dl.getNhipTimMin() + dl.getNhipTimMax()) / 2 && dh < dl.getNhipTimMax()) {
+            nhipTim.binhThuong = 2 * (dl.getNhipTimMax() - nt) / (dl.getNhipTimMax() - dl.getNhipTimMin());
             nhipTim.cao = 1 - nhipTim.binhThuong;
-        } else if (nt >= dl.nhipTimMax) {
+        } else if (nt >= dl.getNhipTimMax()) {
             nhipTim.cao = 1;
         }
         nhipTim.set();
         // tinh gia tri mo cholesterol
-        if (choles < dl.cholesterolMin) {
+        if (choles < dl.getCholesterolMin()) {
             cholesterol.thap = 1;
-        } else if (choles >= dl.cholesterolMin && choles < (dl.cholesterolMin + dl.cholesterolMax) / 2) {
-            cholesterol.binhThuong = 2 * (choles - dl.cholesterolMin) / (dl.cholesterolMax - dl.cholesterolMin);
+        } else if (choles >= dl.getCholesterolMin() && choles < (dl.getCholesterolMin() + dl.getCholesterolMax()) / 2) {
+            cholesterol.binhThuong = 2 * (choles - dl.getCholesterolMin()) / (dl.getCholesterolMax() - dl.getCholesterolMin());
             cholesterol.thap = 1 - cholesterol.binhThuong;
-        } else if (choles >= (dl.cholesterolMin + dl.cholesterolMax) / 2 && choles < dl.cholesterolMax) {
-            cholesterol.binhThuong = 2 * (dl.cholesterolMax - choles) / (dl.cholesterolMax - dl.cholesterolMin);
+        } else if (choles >= (dl.getCholesterolMin() + dl.getCholesterolMax()) / 2 && choles < dl.getCholesterolMax()) {
+            cholesterol.binhThuong = 2 * (dl.getCholesterolMax() - choles) / (dl.getCholesterolMax() - dl.getCholesterolMin());
             cholesterol.cao = 1 - cholesterol.binhThuong;
-        } else if (choles >= dl.cholesterolMax) {
+        } else if (choles >= dl.getCholesterolMax()) {
             cholesterol.cao = 1;
         }
         cholesterol.set();

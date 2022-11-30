@@ -1,25 +1,30 @@
 package com.example.chatbotspring.services.fuzzylogic.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.opencsv.bean.CsvBindByPosition;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DuLieu {
-    public String gioiTinh;
-    public int tuoi;
-    public double chieuCaoMin;
-    public double chieuCaoMax;
-    public double canNangMin;
-    public double canNangMax;
-    public double duongHuyetMin;
-    public double duongHuyetMax;
-    public int nhipTimMin;
-    public int nhipTimMax;
-    public double cholesterolMin;
-    public double cholesterolMax;
+@Builder
+public class DuLieuFuzzy {
+
+    private String gioiTinh;
+    private int tuoi;
+    private double chieuCaoMin;
+    private double chieuCaoMax;
+    private double canNangMin;
+    private double canNangMax;
+    private double duongHuyetMin;
+    private double duongHuyetMax;
+    private int nhipTimMin;
+    private int nhipTimMax;
+    private double cholesterolMin;
+    private double cholesterolMax;
 
 
     @Override

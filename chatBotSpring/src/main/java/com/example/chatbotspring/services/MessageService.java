@@ -2,22 +2,62 @@ package com.example.chatbotspring.services;
 
 import com.example.chatbotspring.model.request.DataRequest;
 import com.example.chatbotspring.model.response.DataResponse;
-import com.example.chatbotspring.services.fuzzylogic.FuzzyService;
-import com.example.chatbotspring.services.neuralnetwork.NeuralNetworkService;
-import lombok.AllArgsConstructor;
+import com.example.chatbotspring.services.fuzzylogic.Fuzzy;
+import com.example.chatbotspring.services.neuralnetwork.NeuralNetwork;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
 @Service
-@AllArgsConstructor
+@Component
 public class MessageService {
 
-    private final FuzzyService fuzzyService;
+    private static final Logger logger = LoggerFactory.getLogger(MessageService.class);
 
-    private final NeuralNetworkService neuralNetworkService;
+    private final NeuralNetwork neuralNetwork = new NeuralNetwork(
+            8,
+            5,
+            11,
+            1
+    );
+
+    @Autowired
+    public MessageService() {
+        training();
+    }
+
+    public void training() {
+        double[] inputArray = new double[8];
+        inputArray[0] = 0.5;
+        inputArray[1] = 0.9;
+        inputArray[2] = 0.3;
+        inputArray[3] = 0.3;
+        inputArray[4] = 0.3;
+        inputArray[5] = 0.6;
+        inputArray[6] = 0.3;
+        inputArray[7] = 0.1;
+        double[] targetArray = new double[1];
+        targetArray[0] = 1;
+        logger.info("======START TRAINING======");
+        neuralNetwork.train(inputArray, targetArray);
+        logger.info("======END TRAINING======");
+    }
 
     public DataResponse predict(DataRequest request) {
-        return new DataResponse();
+        double[] guess = new double[8];
+        guess[0] = 0.5;
+        guess[1] = 0.9;
+        guess[2] = 0.3;
+        guess[3] = 0.3;
+        guess[4] = 0.3;
+        guess[5] = 0.6;
+        guess[6] = 0.3;
+        guess[7] = 0.1;
+        double[] result = neuralNetwork.guess(guess);
+        return new DataResponse(result[0]);
     }
 
 }

@@ -7,14 +7,12 @@ import com.example.chatbotspring.utils.WrongDimensionException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.ejml.simple.SimpleMatrix;
-import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Data
-@Service
 @AllArgsConstructor
-public class NeuralNetworkService {
+public class NeuralNetwork {
 
     private final ActivationFunctionFactory activationFunctionFactory = new ActivationFunctionFactory();
 
@@ -33,8 +31,8 @@ public class NeuralNetworkService {
     private String activationFunctionKey;
 
     // constructor
-    public NeuralNetworkService(int inputNodes, int hiddenLayers,
-                                int hiddenNodes, int outputNodes) {
+    public NeuralNetwork(int inputNodes, int hiddenLayers,
+                         int hiddenNodes, int outputNodes) {
         this.inputNodes = inputNodes;
         this.hiddenLayers = hiddenLayers;
         this.hiddenNodes = hiddenNodes;
@@ -44,7 +42,7 @@ public class NeuralNetworkService {
         initializeBiases();
     }
 
-    public NeuralNetworkService(NeuralNetworkService nn) {
+    public NeuralNetwork(NeuralNetwork nn) {
         this.inputNodes = nn.inputNodes;
         this.hiddenLayers = nn.hiddenLayers;
         this.hiddenNodes = nn.hiddenNodes;

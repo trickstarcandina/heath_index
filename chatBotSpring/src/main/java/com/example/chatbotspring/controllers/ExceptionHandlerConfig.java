@@ -10,13 +10,13 @@ public class ExceptionHandlerConfig {
     @ExceptionHandler(RuntimeException.class)
     ResponseEntity<String> apiException()
     {
-        return ResponseEntity.badRequest().body("Không thể nhận dạng thông tin cần tư vấn");
+        return ResponseEntity.badRequest().body("Không thể nhận dạng thông tin cần đánh giá");
     }
 
     @ExceptionHandler(Exception.class)
     ResponseEntity<String> exception()
     {
-        return ResponseEntity.badRequest().body("Không thể nhận dạng thông tin cần tư vấn");
+        return ResponseEntity.badRequest().body("Không thể nhận dạng thông tin cần đánh giá");
     }
 
 }
