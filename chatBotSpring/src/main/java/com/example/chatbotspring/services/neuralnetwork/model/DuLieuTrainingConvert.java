@@ -13,17 +13,19 @@ public class DuLieuTrainingConvert {
     @CsvBindByPosition(position = 0)
     private String gioiTinh;
     @CsvBindByPosition(position = 1)
-    private int tuoi;
+    private String tuoi;
     @CsvBindByPosition(position = 2)
-    private double chieuCao;
+    private String chieuCao;
     @CsvBindByPosition(position = 3)
-    private double canNang;
+    private String canNang;
     @CsvBindByPosition(position = 4)
-    private double duongHuyet;
+    private String duongHuyet;
     @CsvBindByPosition(position = 5)
-    private int nhipTim;
+    private String nhipTim;
     @CsvBindByPosition(position = 6)
-    private double cholesterol;
+    private String cholesterol;
+    @CsvBindByPosition(position = 7)
+    private String chiSoSucKhoe;
 
     @Override
     public String toString() {
@@ -35,6 +37,7 @@ public class DuLieuTrainingConvert {
                 ", duongHuyet=" + duongHuyet +
                 ", nhipTim=" + nhipTim +
                 ", cholesterol=" + cholesterol +
+                ", chiSoSucKhoe=" + chiSoSucKhoe +
                 '}';
     }
 }

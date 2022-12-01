@@ -48,7 +48,7 @@ public class Fuzzy {
     public Double th_t;
 
     // doc du lieu tu file csv
-    public Fuzzy() throws IOException { // doc du lieu tu file csv
+    public Fuzzy() { // doc du lieu tu file csv
         String excelFilePath = "src/main/resources/fuzzy.csv";
         list = FileReaderCSV.readFileFuzzy(excelFilePath);
     }

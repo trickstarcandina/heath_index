@@ -18,6 +18,7 @@ public class DuLieuTraining {
     private double duongHuyet;
     private int nhipTim;
     private double cholesterol;
+    private double chiSoSucKhoe;
 
     @Override
     public String toString() {
@@ -29,6 +30,7 @@ public class DuLieuTraining {
                 ", duongHuyet=" + duongHuyet +
                 ", nhipTim=" + nhipTim +
                 ", cholesterol=" + cholesterol +
+                ", chiSoSucKhoe=" + chiSoSucKhoe +
                 '}';
     }
 }
