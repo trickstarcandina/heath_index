@@ -1,6 +1,7 @@
 package com.example.chatbotspring.controllers;
 
 import com.example.chatbotspring.model.request.DataRequest;
+import com.example.chatbotspring.model.response.DataResponse;
 import com.example.chatbotspring.services.MessageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class MessageController {
     private final MessageService messageService;
 
     @PostMapping("/sendData")
-    public ResponseEntity sendMessage(@RequestBody DataRequest request) {
+    public ResponseEntity<DataResponse> sendMessage(@RequestBody DataRequest request) {
         return ResponseEntity.ok(messageService.predict(request));
     }
 

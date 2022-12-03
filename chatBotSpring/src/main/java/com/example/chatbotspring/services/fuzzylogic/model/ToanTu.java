@@ -7,10 +7,10 @@ import java.util.List;
 
 @Data
 public class ToanTu {
-    private  double thap;
-    private  double binhThuong;
-    private  double cao;
-    private  List<Double> p = new ArrayList<>();
+    private double thap;
+    private double binhThuong;
+    private double cao;
+    private List<Double> p = new ArrayList<>();
 
     public ToanTu() {
         thap = 0;

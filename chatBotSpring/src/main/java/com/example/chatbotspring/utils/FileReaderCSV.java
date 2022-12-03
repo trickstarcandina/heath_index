@@ -19,9 +19,7 @@ import java.util.Locale;
 
 public class FileReaderCSV {
 
-    private static String SPLIT_BY = ",";
-
-    private static NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+    private static final NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
 
     private static final Logger logger = LoggerFactory.getLogger(FileReaderCSV.class);
 
@@ -107,7 +105,7 @@ public class FileReaderCSV {
         try {
             return format.parse(s.replace(",", ".")).doubleValue();
         } catch (Exception e) {
-            logger.error("error when parse file csv {}", e.getMessage());
+            logger.error("error when parse double {}", e.getMessage());
         }
         return -1.0;
     }
@@ -116,7 +114,7 @@ public class FileReaderCSV {
         try {
             return format.parse(s).intValue();
         } catch (Exception e) {
-            logger.error("error when parse file csv {}", e.getMessage());
+            logger.error("error when parse integer {}", e.getMessage());
         }
         return -1;
     }

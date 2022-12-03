@@ -24,12 +24,12 @@ public class MessageService {
 
     private final NeuralNetwork neuralNetwork = new NeuralNetwork(
             8,
-            5,
-            11,
+            10,
+            10,
             1
     );
 
-    private final Fuzzy fuzzy = new Fuzzy();
+    private final List<DuLieuFuzzy> listDuLieuFuzzy = FileReaderCSV.readFileFuzzy("src/main/resources/fuzzy.csv");
 
     @Autowired
     public MessageService() {
@@ -41,6 +41,8 @@ public class MessageService {
         logger.info("======START TRAINING======");
         duLieuTrainings.forEach(e -> {
             logger.info(e.toString());
+            Fuzzy fuzzy = new Fuzzy();
+            fuzzy.setListDuLieuFuzzy(listDuLieuFuzzy);
             List<Double> listResultFuzzy = fuzzy.ketQua(
                     e.getGioiTinh(),
                     e.getTuoi(),
@@ -62,15 +64,21 @@ public class MessageService {
     }
 
     public DataResponse predict(DataRequest request) {
-        double[] guess = new double[8];
-        guess[0] = 0.5;
-        guess[1] = 0.9;
-        guess[2] = 0.3;
-        guess[3] = 0.3;
-        guess[4] = 0.3;
-        guess[5] = 0.6;
-        guess[6] = 0.3;
-        guess[7] = 0.1;
+        Fuzzy fuzzy = new Fuzzy();
+        fuzzy.setListDuLieuFuzzy(listDuLieuFuzzy);
+        List<Double> listPredictFuzzy = fuzzy.ketQua(
+                request.getGender().toString(),
+                request.getAge(),
+                request.getHeight(),
+                request.getWeight(),
+                request.getBloodSugar(),
+                request.getHeartBeat(),
+                request.getCholesterol()
+        );
+        double[] guess = new double[listPredictFuzzy.size()];
+        for (int i = 0; i < listPredictFuzzy.size(); i++) {
+            guess[i] = listPredictFuzzy.get(i);
+        }
         double[] result = neuralNetwork.guess(guess);
         return new DataResponse(result[0]);
     }

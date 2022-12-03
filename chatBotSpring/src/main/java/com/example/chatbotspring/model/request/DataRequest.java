@@ -1,26 +1,37 @@
 package com.example.chatbotspring.model.request;
 
 import com.example.chatbotspring.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataRequest {
-    private Integer age;
+    @NonNull
+    private int age;
 
+    @NonNull
     private Gender gender;
 
-    private Double height;
+    @NonNull
+    private double height;
 
-    private Double weight;
+    @NonNull
+    private double weight;
 
-    private Double bloodSugar;
+    @NonNull
+    @JsonProperty("blood_sugar")
+    private double bloodSugar;
 
-    private Double heartBeat;
+    @NonNull
+    @JsonProperty("heart_beat")
+    private double heartBeat;
 
-    private Double cholesterol;
+    @NonNull
+    private double cholesterol;
 
 }
