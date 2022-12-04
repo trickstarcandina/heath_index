@@ -134,6 +134,7 @@ public class NeuralNetwork {
                         input, activationFunction);
                 input = layers[j];
             }
+            // tinh toan nguoc
             for (int n = hiddenLayers + 1; n > 0; n--) {
                 // tính toán sai số
                 SimpleMatrix errors = target.minus(layers[n]);

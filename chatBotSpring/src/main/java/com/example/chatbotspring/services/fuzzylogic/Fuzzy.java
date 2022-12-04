@@ -81,24 +81,24 @@ public class Fuzzy {
         return Math.abs(1-l*he_so);
     }
 
-    public static void main(String[] args) throws IOException {
-        Fuzzy fuzzy = new Fuzzy();
-       // List<Double> list = fuzzy.ketQua("nu", 4, 100, 20, 6, 113, 224);
-        List<Double> list = fuzzy.ketQua("nam",	1,	75.5	,9.9,	8,	120,	200);
-        //System.out.println(fuzzy.timkiem("nu", 4).toString());
-        //System.out.println(fuzzy.chieuCao.toString());
-        //System.out.println(fuzzy.canNang.toString());
-        //System.out.println(fuzzy.duongHuyet.toString());
-        //System.out.println(fuzzy.nhipTim.toString());
-        //System.out.println(fuzzy.cholesterol.toString());
-        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
-        System.out.println();
-        System.out.println(fuzzy.moHoa("nu",	9,	132.3,	28.5,	4.95,	72,	178));
-        //System.out.println(fuzzy.list.size());
-        // "nam",	1,	80.5	,10.9,	9.5,	130,	240
-        // "nu",	9,	132.3,	28.5,	4.95,	72,	178
-        // "nam",	1,	75.5	,9.9,	8,	120,	200 (0.0 0.6666666666666666 0.23809523809523794 0.23809523809523794 0.33333333333333337 0.4 0.6 0.0 )0.8310528808867756
-    }
+//    public static void main(String[] args) throws IOException {
+//        Fuzzy fuzzy = new Fuzzy();
+//       // List<Double> list = fuzzy.ketQua("nu", 4, 100, 20, 6, 113, 224);
+//        List<Double> list = fuzzy.ketQua("nam",	1,	75.5	,9.9,	8,	120,	200);
+//        //System.out.println(fuzzy.timkiem("nu", 4).toString());
+//        //System.out.println(fuzzy.chieuCao.toString());
+//        //System.out.println(fuzzy.canNang.toString());
+//        //System.out.println(fuzzy.duongHuyet.toString());
+//        //System.out.println(fuzzy.nhipTim.toString());
+//        //System.out.println(fuzzy.cholesterol.toString());
+//        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
+//        System.out.println();
+//        System.out.println(fuzzy.moHoa("nu",	9,	132.3,	28.5,	4.95,	72,	178));
+//        //System.out.println(fuzzy.list.size());
+//        // "nam",	1,	80.5	,10.9,	9.5,	130,	240
+//        // "nu",	9,	132.3,	28.5,	4.95,	72,	178
+//        // "nam",	1,	75.5	,9.9,	8,	120,	200 (0.0 0.6666666666666666 0.23809523809523794 0.23809523809523794 0.33333333333333337 0.4 0.6 0.0 )0.8310528808867756
+//    }
 
     // tim kiem du lieu chuan theo gioi tinh va tuoi
     public DuLieuFuzzy timkiem(String gioitinh, int tuoi) {
