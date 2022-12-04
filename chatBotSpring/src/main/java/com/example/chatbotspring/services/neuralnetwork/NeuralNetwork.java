@@ -145,10 +145,14 @@ public class NeuralNetwork {
                 SimpleMatrix deltas = calculateDeltas(gradients, layers[n - 1]);
                 // áp dụng gradient vào bias
                 biases[n - 1] = biases[n - 1].plus(gradients);
+
+                // tính toán và đặt lại target cho lớp trước
+                // w = w * errors ? w = w * dao ham tai n
+                SimpleMatrix previousError = weights[n - 1].transpose().mult(errors);
+
                 // áp dụng delta vào weights
                 weights[n - 1] = weights[n - 1].plus(deltas);
-                // tính toán và đặt lại target cho lớp trước
-                SimpleMatrix previousError = weights[n - 1].transpose().mult(errors);
+
                 target = previousError.plus(layers[n - 1]);
             }
         }
