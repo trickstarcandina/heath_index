@@ -8,11 +8,15 @@ package com.example.chatbotspring.services.fuzzylogic;
 import com.example.chatbotspring.services.fuzzylogic.model.DuLieuFuzzy;
 import com.example.chatbotspring.services.fuzzylogic.model.Pair;
 import com.example.chatbotspring.services.fuzzylogic.model.ToanTu;
+import com.example.chatbotspring.services.neuralnetwork.model.DuLieuTraining;
 import com.example.chatbotspring.utils.FileReaderCSV;
+import com.example.chatbotspring.utils.FileWriterCSV;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,51 +57,6 @@ public class Fuzzy {
 //    public Fuzzy() { // doc du lieu tu file csv
 //        String excelFilePath = "src/main/resources/fuzzy.csv";
 //        listDuLieuFuzzy = FileReaderCSV.readFileFuzzy(excelFilePath);
-//    }
-
-    public double moHoa(String gioitinh, int tuoi, double cc, double cn, double dh, double nt, double cholesterol){ // giai mo theo trong tam
-        DuLieuFuzzy dl = timkiem(gioitinh, tuoi);
-        double cctb = (double) (dl.getChieuCaoMax() + dl.getChieuCaoMin())/2;
-        double cntb = (double) (dl.getCanNangMax() + dl.getCanNangMin())/2;
-        double dhtb = (double) (dl.getDuongHuyetMax() + dl.getDuongHuyetMin())/2;
-        double nttb = (double) (dl.getNhipTimMax() + dl.getNhipTimMin())/2 ;
-        double cholestb = (double) (dl.getCholesterolMax() + dl.getCholesterolMin())/2;
-        double x1,x2,x3,x4,x5; // do lech/phan tram
-        x1 = (double) 0.2/(cctb-dl.getChieuCaoMin());
-        x2 = (double) 0.2/(cntb-dl.getCanNangMin());
-        x3 = (double) 0.2/(dhtb-dl.getDuongHuyetMin());
-        x4 = (double) 0.2/(nttb-dl.getNhipTimMin());
-        x5 = (double) 0.2/(cholestb-dl.getCholesterolMin());
-        double l1,l2,l3,l4,l5; // do lech
-        l1 = Math.abs(cc - cctb)*x1;
-        l2 = Math.abs(cn - cntb)*x2;
-        l3 = Math.abs(dh - dhtb)*x3;
-        l4 = Math.abs(nt - nttb)*x4;
-        l5 = Math.abs(cholesterol - cholestb)*x5;
-        //System.out.println(x1 + " " + x2 + " " + x3 + " " + x4 + " " + x5);
-        //double x = Math.min(x1, Math.min(x2, Math.min(x3, Math.min(x4, x5))));
-        double he_so = (Math.random() * (105 - 95 + 1) + 95)/100; // random he so
-        double l = (l1+l2+l3+l4+l5)/5;
-        return Math.abs(1-l*he_so);
-    }
-
-//    public static void main(String[] args) throws IOException {
-//        Fuzzy fuzzy = new Fuzzy();
-//       // List<Double> list = fuzzy.ketQua("nu", 4, 100, 20, 6, 113, 224);
-//        List<Double> list = fuzzy.ketQua("nam",	1,	75.5	,9.9,	8,	120,	200);
-//        //System.out.println(fuzzy.timkiem("nu", 4).toString());
-//        //System.out.println(fuzzy.chieuCao.toString());
-//        //System.out.println(fuzzy.canNang.toString());
-//        //System.out.println(fuzzy.duongHuyet.toString());
-//        //System.out.println(fuzzy.nhipTim.toString());
-//        //System.out.println(fuzzy.cholesterol.toString());
-//        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
-//        System.out.println();
-//        System.out.println(fuzzy.moHoa("nu",	9,	132.3,	28.5,	4.95,	72,	178));
-//        //System.out.println(fuzzy.list.size());
-//        // "nam",	1,	80.5	,10.9,	9.5,	130,	240
-//        // "nu",	9,	132.3,	28.5,	4.95,	72,	178
-//        // "nam",	1,	75.5	,9.9,	8,	120,	200 (0.0 0.6666666666666666 0.23809523809523794 0.23809523809523794 0.33333333333333337 0.4 0.6 0.0 )0.8310528808867756
 //    }
 
     // tim kiem du lieu chuan theo gioi tinh va tuoi
@@ -287,6 +246,79 @@ public class Fuzzy {
         listTuanHoanTot.add(new Pair(2, 2, 1));
         listTuanHoanTot.add(new Pair(2, 2, 2));
     }
+
+//    public static void main(String[] args) {
+//        Fuzzy fuzzy = new Fuzzy();
+//       // List<Double> list = fuzzy.ketQua("nu", 4, 100, 20, 6, 113, 224);
+//        List<Double> list = fuzzy.ketQua("nam",	1,	75.5	,9.9,	8,	120,	200);
+//        //System.out.println(fuzzy.timkiem("nu", 4).toString());
+//        //System.out.println(fuzzy.chieuCao.toString());
+//        //System.out.println(fuzzy.canNang.toString());
+//        //System.out.println(fuzzy.duongHuyet.toString());
+//        //System.out.println(fuzzy.nhipTim.toString());
+//        //System.out.println(fuzzy.cholesterol.toString());
+//        for (int i = 0; i < list.size(); i++) System.out.print(list.get(i) + " ");
+//        System.out.println();
+//        System.out.println(fuzzy.moHoa("nu",	9,	132.3,	28.5,	4.95,	72,	178));
+//        System.out.println(fuzzy.listDuLieuFuzzy.size());
+//        // "nam",	1,	80.5	,10.9,	9.5,	130,	240
+//        // "nu",	9,	132.3,	28.5,	4.95,	72,	178
+//        // "nam",	1,	75.5	,9.9,	8,	120,	200 (0.0 0.6666666666666666 0.23809523809523794 0.23809523809523794 0.33333333333333337 0.4 0.6 0.0 )0.8310528808867756
+//    }
+
+    public double moHoa(String gioitinh, int tuoi, double cc, double cn, double dh, double nt, double cholesterol){ // giai mo theo trong tam
+        DuLieuFuzzy dl = timkiem(gioitinh, tuoi);
+        double cctb = (double) (dl.getChieuCaoMax() + dl.getChieuCaoMin())/2;
+        double cntb = (double) (dl.getCanNangMax() + dl.getCanNangMin())/2;
+        double dhtb = (double) (dl.getDuongHuyetMax() + dl.getDuongHuyetMin())/2;
+        double nttb = (double) (dl.getNhipTimMax() + dl.getNhipTimMin())/2 ;
+        double cholestb = (double) (dl.getCholesterolMax() + dl.getCholesterolMin())/2;
+        double x1,x2,x3,x4,x5; // do lech/phan tram
+        x1 = (double) 0.3/(cctb-dl.getChieuCaoMin());
+        x2 = (double) 0.3/(cntb-dl.getCanNangMin());
+        x3 = (double) 0.3/(dhtb-dl.getDuongHuyetMin());
+        x4 = (double) 0.3/(nttb-dl.getNhipTimMin());
+        x5 = (double) 0.3/(cholestb-dl.getCholesterolMin());
+        double l1,l2,l3,l4,l5; // do lech
+        l1 = Math.abs(cc - cctb)*x1;
+        l2 = Math.abs(cn - cntb)*x2;
+        l3 = Math.abs(dh - dhtb)*x3;
+        l4 = Math.abs(nt - nttb)*x4;
+        l5 = Math.abs(cholesterol - cholestb)*x5;
+        //System.out.println(x1 + " " + x2 + " " + x3 + " " + x4 + " " + x5);
+        //double x = Math.min(x1, Math.min(x2, Math.min(x3, Math.min(x4, x5))));
+        double he_so = (Math.random() * (105 - 95 + 1) + 95)/100; // random he so
+        double l = (l1+l2+l3+l4+l5)/5;
+        return round(Math.abs(1-l*he_so), 3);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public static void main(String[] args) {
+        List<DuLieuFuzzy> listDuLieuFuzzy = FileReaderCSV.readFileFuzzy("src/main/resources/fuzzy.csv");
+        List<DuLieuTraining> duLieuTrainings = FileReaderCSV.readFileTraining("src/main/resources/training.csv");
+        for(DuLieuTraining e : duLieuTrainings) {
+            Fuzzy fuzzy = new Fuzzy();
+            fuzzy.setListDuLieuFuzzy(listDuLieuFuzzy);
+            e.setChiSoSucKhoe(fuzzy.moHoa(
+                    e.getGioiTinh(),
+                    e.getTuoi(),
+                    e.getChieuCao(),
+                    e.getCanNang(),
+                    e.getDuongHuyet(),
+                    e.getNhipTim(),
+                    e.getCholesterol()
+            ));
+        }
+        FileWriterCSV.writeFileTraining(duLieuTrainings, "src/main/resources/training3.csv");
+    }
+
 }
 // fuzzy.ketqua("nam", 1, 80, 10, 6); 0.0 0.5333328 0.46666718 0.22727275 0.0
 // fuzzy.ketqua("nam", 1, 90, 15, 12); 0.0 0.0 0.0 0.0 1.0
