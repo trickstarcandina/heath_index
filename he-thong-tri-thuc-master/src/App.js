@@ -36,7 +36,7 @@ function App() {
 
           <Routes>
             <Route path='/' element={<Home />}></Route>
-            <Route path='/system' element={<System />}></Route>
+            <Route path='/system' element={<System/>}></Route>
           </Routes>
         </div>
         <Result content={content} setContent={setContent}></Result>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Target from '../../components/Target';
-export default function System() {
+export default function System({setContent}) {
   
 
   return (
