@@ -24,8 +24,8 @@ public class MessageService {
 
     private final NeuralNetwork neuralNetwork = new NeuralNetwork(
             8,
-            8,
-            6,
+            5,
+            7,
             1
     );
 
