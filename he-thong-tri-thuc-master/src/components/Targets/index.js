@@ -66,11 +66,11 @@ export default function Target() {
                         defaultValue="Nam"
                         options={[
                             {
-                                value: 'Nu',
+                                value: 'nu',
                                 label: 'Nữ',
                             },
                             {
-                                value: 'Nam',
+                                value: 'nam',
                                 label: 'Nam',
                             },
                         ]}
