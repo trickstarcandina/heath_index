@@ -25,7 +25,7 @@ public class MessageController {
         return ResponseEntity.ok(messageService.predict(request));
     }
 
-    @PostMapping("/private")
+    @GetMapping("/private")
     public ResponseEntity reTraining() {
         messageService.training();
         return ResponseEntity.ok("OK");
