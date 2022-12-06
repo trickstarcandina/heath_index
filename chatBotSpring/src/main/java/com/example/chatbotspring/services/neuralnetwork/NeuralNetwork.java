@@ -65,7 +65,7 @@ public class NeuralNetwork {
     }
 
     private void initializeDefaultValues() {
-        this.setLearningRate(0.1);
+        this.setLearningRate(0.05);
         this.setActivationFunction(ActivationFunction.RELU);
     }
 
@@ -134,20 +134,29 @@ public class NeuralNetwork {
                         input, activationFunction);
                 input = layers[j];
             }
+            // tinh toan nguoc
             for (int n = hiddenLayers + 1; n > 0; n--) {
                 // tính toán sai số
                 SimpleMatrix errors = target.minus(layers[n]);
                 // tính gradient
-                SimpleMatrix gradients = calculateGradient(layers[n], errors,
+                SimpleMatrix gradientNoScale = calculateGradient(layers[n], errors,
                         activationFunction);
+
+                SimpleMatrix gradients = gradientNoScale.scale(learningRate);
                 // tính delta
                 SimpleMatrix deltas = calculateDeltas(gradients, layers[n - 1]);
                 // áp dụng gradient vào bias
                 biases[n - 1] = biases[n - 1].plus(gradients);
+
+                // tính toán và đặt lại target cho lớp trước
+                // w = w * errors ? w = w * dao ham tai n
+                SimpleMatrix previousError = weights[n - 1].transpose()
+//                        .mult(errors);
+                        .mult(gradientNoScale);
+
                 // áp dụng delta vào weights
                 weights[n - 1] = weights[n - 1].plus(deltas);
-                // tính toán và đặt lại target cho lớp trước
-                SimpleMatrix previousError = weights[n - 1].transpose().mult(errors);
+
                 target = previousError.plus(layers[n - 1]);
             }
         }
@@ -164,12 +173,13 @@ public class NeuralNetwork {
                                            ActivationFunction activationFunction) {
         SimpleMatrix gradient = applyActivationFunction(layer, true, activationFunction);
         gradient = gradient.elementMult(error); // đạo hàm activation func * (target - calc_output)
-        return gradient.scale(learningRate); // gradient * learning_date
+        return gradient;
+                //.scale(learningRate); // gradient * learning_date
     }
 
     private SimpleMatrix calculateDeltas(SimpleMatrix gradient,
                                          SimpleMatrix layer) {
-        return gradient.mult(layer.transpose());
+        return gradient.mult(layer.transpose()).divide(1000.0);
     }
 
     private SimpleMatrix applyActivationFunction(SimpleMatrix input, boolean derivative, ActivationFunction activationFunction) {

@@ -6,6 +6,8 @@ public interface ActivationFunction {
 
     final String RELU = "RELU";
 
+    final String SIGMOID = "SIGMOID";
+
     SimpleMatrix applyActivationFunctionToMatrix(SimpleMatrix input);
 
     SimpleMatrix applyDerivativeOfActivationFunctionToMatrix(SimpleMatrix input);

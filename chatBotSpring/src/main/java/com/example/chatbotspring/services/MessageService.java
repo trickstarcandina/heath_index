@@ -24,8 +24,8 @@ public class MessageService {
 
     private final NeuralNetwork neuralNetwork = new NeuralNetwork(
             8,
-            10,
-            10,
+            8,
+            6,
             1
     );
 
@@ -37,7 +37,7 @@ public class MessageService {
     }
 
     public void training() {
-        List<DuLieuTraining> duLieuTrainings = FileReaderCSV.readFileTraining("src/main/resources/training.csv");
+        List<DuLieuTraining> duLieuTrainings = FileReaderCSV.readFileTraining("src/main/resources/training3.csv");
         logger.info("======START TRAINING======");
         duLieuTrainings.forEach(e -> {
             logger.info(e.toString());

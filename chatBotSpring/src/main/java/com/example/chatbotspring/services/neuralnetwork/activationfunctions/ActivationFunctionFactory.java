@@ -8,6 +8,9 @@ public class ActivationFunctionFactory {
     private final Map<String, ActivationFunction> activationFunctionMap = new HashMap<>();
 
     public ActivationFunctionFactory () {
+        ActivationFunction sigmoid = new SigmoidActivationFunction();
+        activationFunctionMap.put(sigmoid.getName(), sigmoid);
+
         ActivationFunction relu = new ReLuActivationFunction();
         activationFunctionMap.put(relu.getName(), relu);
     }
