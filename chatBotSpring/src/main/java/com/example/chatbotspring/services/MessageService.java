@@ -24,8 +24,8 @@ public class MessageService {
 
     private final NeuralNetwork neuralNetwork = new NeuralNetwork(
             8,
-            8,
-            6,
+            5,
+            7,
             1
     );
 
@@ -60,6 +60,7 @@ public class MessageService {
             targetArray[0] = e.getChiSoSucKhoe();
             neuralNetwork.train(inputArray, targetArray);
         });
+        logger.info("Size: {}", duLieuTrainings.size());
         logger.info("======END TRAINING======");
     }
 

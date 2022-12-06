@@ -12,7 +12,7 @@ public class ReLuActivationFunction implements ActivationFunction{
         for (int i = 0; i < input.numRows(); i++) {
             // only = 0 vì có 1 cột input
             double value = input.get(i, 0);
-            double result = value > 0 ? value : 0;
+            double result = value > 0 ? value : (value * 0.1);
             output.set(i, 0, result);
         }
         return output;
@@ -23,7 +23,7 @@ public class ReLuActivationFunction implements ActivationFunction{
         SimpleMatrix output = new SimpleMatrix(input.numRows(), input.numCols());
         for (int i = 0; i < input.numRows(); i++) {
             double value = input.get(i, 0);
-            double result = value > 0 ? 1 : 0;
+            double result = value > 0 ? 1 : 0.1;
             output.set(i, 0, result);
         }
         // for input > 0: 1, else 0
