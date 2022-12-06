@@ -1,5 +1,5 @@
 import React from 'react';
-import Target from '../../components/Target';
+import Target from '../../components/Targets';
 export default function System({setContent}) {
   
 
