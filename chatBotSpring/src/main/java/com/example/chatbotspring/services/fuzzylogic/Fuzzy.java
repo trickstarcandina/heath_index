@@ -300,24 +300,24 @@ public class Fuzzy {
         return bd.doubleValue();
     }
 
-    public static void main(String[] args) {
-        List<DuLieuFuzzy> listDuLieuFuzzy = FileReaderCSV.readFileFuzzy("src/main/resources/fuzzy.csv");
-        List<DuLieuTraining> duLieuTrainings = FileReaderCSV.readFileTraining("src/main/resources/training.csv");
-        for(DuLieuTraining e : duLieuTrainings) {
-            Fuzzy fuzzy = new Fuzzy();
-            fuzzy.setListDuLieuFuzzy(listDuLieuFuzzy);
-            e.setChiSoSucKhoe(fuzzy.moHoa(
-                    e.getGioiTinh(),
-                    e.getTuoi(),
-                    e.getChieuCao(),
-                    e.getCanNang(),
-                    e.getDuongHuyet(),
-                    e.getNhipTim(),
-                    e.getCholesterol()
-            ));
-        }
-        FileWriterCSV.writeFileTraining(duLieuTrainings, "src/main/resources/training3.csv");
-    }
+//    public static void main(String[] args) {
+//        List<DuLieuFuzzy> listDuLieuFuzzy = FileReaderCSV.readFileFuzzy("src/main/resources/fuzzy.csv");
+//        List<DuLieuTraining> duLieuTrainings = FileReaderCSV.readFileTraining("src/main/resources/training.csv");
+//        for(DuLieuTraining e : duLieuTrainings) {
+//            Fuzzy fuzzy = new Fuzzy();
+//            fuzzy.setListDuLieuFuzzy(listDuLieuFuzzy);
+//            e.setChiSoSucKhoe(fuzzy.moHoa(
+//                    e.getGioiTinh(),
+//                    e.getTuoi(),
+//                    e.getChieuCao(),
+//                    e.getCanNang(),
+//                    e.getDuongHuyet(),
+//                    e.getNhipTim(),
+//                    e.getCholesterol()
+//            ));
+//        }
+//        FileWriterCSV.writeFileTraining(duLieuTrainings, "src/main/resources/training3.csv");
+//    }
 
 }
 // fuzzy.ketqua("nam", 1, 80, 10, 6); 0.0 0.5333328 0.46666718 0.22727275 0.0
