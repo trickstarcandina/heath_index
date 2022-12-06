@@ -25,4 +25,10 @@ public class MessageController {
         return ResponseEntity.ok(messageService.predict(request));
     }
 
+    @PostMapping("/private")
+    public ResponseEntity reTraining() {
+        messageService.training();
+        return ResponseEntity.ok("OK");
+    }
+
 }
