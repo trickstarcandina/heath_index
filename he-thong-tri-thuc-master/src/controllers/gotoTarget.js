@@ -27,8 +27,6 @@ export const gotoTarget = (data) => {
       let label = '';
       if (i1.label === 'NB' && i2.label === 'NB') {
         label = 'Z';
-      } else if (i1.label === 'NB' && i2.label === 'NM') {
-        label = 'Z';
       } else if (i1.label === 'NB' && i2.label === 'Z') {
         label = 'PM';
       } else if (i1.label === 'NB' && i2.label === 'PM') {
