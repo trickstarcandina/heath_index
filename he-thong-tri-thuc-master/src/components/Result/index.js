@@ -4,6 +4,7 @@ import { ModalContext } from '../../App';
 
 const Result = ({ content, setContent }) => {
   console.log("content: 123", content);
+  const a = content.toString();
   return (
     <>
       <Modal
@@ -14,7 +15,7 @@ const Result = ({ content, setContent }) => {
         onCancel={() => setContent('')}
         width={1000}
       >
-        <div>Chỉ số sức khỏe: {content}</div>
+        <div>Chỉ số sức khỏe: {parseFloat(a).toFixed(2)}</div>
         <div>(0->0.3: rất kém</div>
         <div>0.31->0.5 kém</div>
         <div>0.51->0.7 bình thường</div>

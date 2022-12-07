@@ -34,6 +34,7 @@ export default function Target() {
             })
             .catch(function(err) {
                 console.log("err: ", err);
+                toast.error(err);
             })
         
     };
@@ -87,16 +88,16 @@ export default function Target() {
                             },
                             {
                                 type: 'number',
-                                min: 0,
-                                max: 100,
+                                min: 1,
+                                max: 50,
                                 message:
-                                    'Tuổi phải từ 1-100',
+                                    'Tuổi phải từ 1-50',
                             },
                         ]}
                         name='old'
                     >
                         <InputNumber
-                            placeholder='từ 1 đến 150'
+                            placeholder='từ 1 đến 50'
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
@@ -111,15 +112,14 @@ export default function Target() {
                             { required: true, message: 'Chỉ số nhịp tim phải là số' },
                             {
                                 type: 'number',
-                                min: 50,
-                                max: 150,
-                                message: 'Chỉ số nhịp tim phải là số từ 50 đến 150',
+                                min: 30,
+                                max: 200,
+                                message: 'Chỉ số nhịp tim phải là số từ 30 đến 200',
                             },
                         ]}
                         name='heartbeat'
                     >
                         <InputNumber
-                            placeholder='từ 50 đến 150'
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
@@ -134,15 +134,14 @@ export default function Target() {
                             },
                             {
                                 type: 'number',
-                                min: 100,
+                                min: 50,
                                 max: 250,
-                                message: 'Chỉ số cholesterol là số từ 100 đến 250',
+                                message: 'Chỉ số cholesterol là số từ 50 đến 250',
                             },
                         ]}
                         name='cholesterol'
                     >
                         <InputNumber
-                            placeholder='từ 100 đến 250'
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
@@ -165,7 +164,6 @@ export default function Target() {
                         name='sugar'
                     >
                         <InputNumber
-                            placeholder='từ 0 đến 20'
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
@@ -188,7 +186,6 @@ export default function Target() {
                         name='height'
                     >
                         <InputNumber
-                            placeholder='từ 0 đến 300'
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
@@ -204,7 +201,6 @@ export default function Target() {
                             {
                                 type: 'number',
                                 min: 0,
-                                max: 300,
                                 message:
                                     'Cân nặng phải là số lớn hơn không',
                             },
@@ -212,7 +208,6 @@ export default function Target() {
                         name='weight'
                     >
                         <InputNumber
-                            placeholder='từ 0 đến 300'
                             style={{ width: '100%' }}
                         />
                     </Form.Item>
