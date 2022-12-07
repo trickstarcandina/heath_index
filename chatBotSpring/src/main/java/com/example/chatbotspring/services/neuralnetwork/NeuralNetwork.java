@@ -179,7 +179,7 @@ public class NeuralNetwork {
 
     private SimpleMatrix calculateDeltas(SimpleMatrix gradient,
                                          SimpleMatrix layer) {
-        return gradient.mult(layer.transpose()).divide(1000.0);
+        return gradient.mult(layer.transpose()).divide(1);
     }
 
     private SimpleMatrix applyActivationFunction(SimpleMatrix input, boolean derivative, ActivationFunction activationFunction) {
