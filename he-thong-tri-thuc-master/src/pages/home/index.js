@@ -27,7 +27,7 @@ const Home = () => {
               <hr className="divider" />
             </div>
             <div className="col-lg-8 align-self-baseline">
-              <Link className="btn btn-primary btn-xl" to="/system">Bắt đầuu</Link>
+              <Link className="btn btn-primary btn-xl" to="/system">Bắt đầu</Link>
             </div>
           </div>
         </div>
